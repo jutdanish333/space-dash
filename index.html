@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Space Dash - Premium Space Survival Arcade Game</title>
+  <meta name="title" content="Space Dash - Premium Space Survival Arcade Game">
+  <meta name="description" content="Embark on an intense space journey in Space Dash. Dodge asteroids, collect powerful upgrades, unleash particle explosions, and compete for the high score in this premium single-file browser game.">
+  <meta name="keywords" content="space dash, space game, browser game, arcade game, HTML5 game, retro arcade, asteroid dodge, single file game, web audio api game">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Space Dash Team">
+  <link rel="canonical" href="https://spacedash.example.com/">
+
+  <!-- Search Console Verification Placeholder -->
+  <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN_HERE"> -->
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://spacedash.example.com/">
+  <meta property="og:title" content="Space Dash - Premium Space Survival Arcade Game">
+  <meta property="og:description" content="Embark on an intense space journey in Space Dash. Dodge asteroids, collect powerful upgrades, unleash particle explosions, and compete for the high score in this premium single-file browser game.">
+  <meta property="og:image" content="https://spacedash.example.com/assets/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://spacedash.example.com/">
+  <meta property="twitter:title" content="Space Dash - Premium Space Survival Arcade Game">
+  <meta property="twitter:description" content="Embark on an intense space journey in Space Dash. Dodge asteroids, collect powerful upgrades, unleash particle explosions, and compete for the high score in this premium single-file browser game.">
+  <meta property="twitter:image" content="https://spacedash.example.com/assets/og-image.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Structured Data JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Space Dash",
+    "operatingSystem": "Any",
+    "applicationCategory": "GameApplication",
+    "browserRequirements": "Requires HTML5 Canvas and Web Audio API support.",
+    "genre": "Arcade",
+    "ratingValue": "4.9",
+    "ratingCount": "1284",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "How do you control the ship in Space Dash?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On Desktop, you can use the Arrow Keys or A / D keys to steer left and right. On Mobile devices, touch or drag left/right on the screen to control ship position."
+      }
+    }, {
+      "@type": "Question",
+      "name": "What do the powerups do in Space Dash?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Space Dash features three main powerups: Shield (protects you from one asteroid impact), Slow Motion (temporarily slows down time), and Double Score (doubles the points earned for dodging)."
+      }
+    }]
+  }
+  </script>
+
+  <!-- Google Analytics / Tag Manager / Clarity Placeholders -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window,document,"clarity","script","xxxxxxxxxx");
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  -->
+
+  <style>
+    /* Styling variables mimicking Linear/Stripe style */
+    :root {
+      --bg: #030014;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-color-glow: rgba(139, 92, 246, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --primary: #8b5cf6;
+      --primary-hover: #7c3aed;
+      --primary-glow: rgba(139, 92, 246, 0.5);
+      --secondary: #ec4899;
+      --secondary-glow: rgba(236, 72, 153, 0.5);
+      --accent: #06b6d4;
+      --accent-glow: rgba(6, 182, 212, 0.5);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-display: 'Orbitron', sans-serif;
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Standard Utilities */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .glass {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+    }
+
+    .glow-primary {
+      box-shadow: 0 0 25px var(--primary-glow);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem 1.8rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      transition: var(--transition);
+      border: 1px solid transparent;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #a78bfa);
+      color: #fff;
+      box-shadow: 0 4px 20px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--primary-glow);
+    }
+
+    .btn-primary:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Layout & Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--border-color);
+      background: rgba(3, 0, 20, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--secondary);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--secondary);
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    /* Hero & Game Interface Frame */
+    .hero {
+      padding: 6rem 0 4rem 0;
+      position: relative;
+      text-align: center;
+    }
+
+    .hero-bg-glow {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(3, 0, 20, 0) 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-family: var(--font-sans);
+      font-size: 4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 2.5rem auto;
+      font-size: 1.2rem;
+    }
+
+    /* The Interactive Game Panel */
+    .game-section {
+      margin-bottom: 6rem;
+    }
+
+    .game-container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 16 / 9;
+      margin: 0 auto;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(139, 92, 246, 0.2);
+    }
+
+    #gameCanvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: #050212;
+    }
+
+    /* HUD elements overlays */
+    .game-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(5, 2, 18, 0.8);
+      z-index: 10;
+      transition: opacity 0.4s ease;
+      padding: 2rem;
+    }
+
+    .game-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .overlay-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+    }
+
+    .overlay-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    /* HUD Stats UI on top of active gameplay */
+    .hud-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .hud-item {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .hud-label {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hud-lives {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .heart-icon {
+      width: 18px;
+      height: 18px;
+      fill: #ef4444;
+      filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.6));
+      transition: transform 0.2s ease;
+    }
+
+    .heart-icon.lost {
+      fill: #374151;
+      filter: none;
+      transform: scale(0.8);
+    }
+
+    .combo-badge {
+      position: absolute;
+      top: 4.5rem;
+      right: 1.5rem;
+      background: linear-gradient(135deg, var(--secondary), #f43f5e);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.4);
+      opacity: 0;
+      transform: scale(0.8);
+      transition: var(--transition);
+      pointer-events: none;
+    }
+
+    .combo-badge.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Onscreen Mobile Controls Overlay */
+    .mobile-controls {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 5;
+      pointer-events: auto;
+    }
+
+    .control-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: transform 0.1s ease;
+    }
+
+    .control-btn:active {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(0.9);
+    }
+
+    .control-arrow {
+      width: 24px;
+      height: 24px;
+      fill: #fff;
+    }
+
+    /* Pause Overlay Button */
+    .pause-btn {
+      position: absolute;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: auto;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-color);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 6;
+      transition: var(--transition);
+    }
+
+    .pause-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .pause-icon {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    /* Countdown Display */
+    .countdown-display {
+      font-family: var(--font-display);
+      font-size: 8rem;
+      font-weight: 900;
+      color: var(--accent);
+      text-shadow: 0 0 40px var(--accent-glow);
+      animation: zoomFade 1s infinite alternate;
+    }
+
+    /* Statistics / Landing Content Sections */
+    section {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 3rem auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      padding: 2.5rem;
+      transition: var(--transition);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-color-glow);
+    }
+
+    .feature-icon-wrapper {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .feature-icon {
+      width: 24px;
+      height: 24px;
+      stroke: var(--primary);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Stats Dashboard */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* FAQ accordion styling */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-card);
+      transition: var(--transition);
+    }
+
+    .faq-trigger {
+      width: 100%;
+      padding: 1.5rem;
+      background: transparent;
+      border: none;
+      text-align: left;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      outline: none;
+    }
+
+    .faq-trigger:focus-visible {
+      outline: 2px solid var(--primary);
+    }
+
+    .faq-icon {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s ease;
+      stroke: var(--text-muted);
+    }
+
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
+      padding: 0 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .faq-item.open .faq-content {
+      max-height: 150px;
+      padding-bottom: 1.5rem;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(180deg);
+      stroke: var(--primary);
+    }
+
+    /* Modals for Privacy Policy / Terms */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 0, 20, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-dialog {
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 2.5rem;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      color: #fff;
+    }
+
+    .modal-body {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .modal-body h4 {
+      color: #fff;
+      margin: 1.5rem 0 0.5rem 0;
+    }
+
+    /* Cookie Banner styling */
+    .cookie-banner {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 150;
+      width: calc(100% - 4rem);
+      max-width: 500px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .cookie-banner.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .cookie-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    /* Footer styling */
+    footer {
+      padding: 4rem 0;
+      background: #02000d;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-layout {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 5px var(--secondary);
+      }
+      100% {
+        box-shadow: 0 0 15px var(--secondary);
+      }
+    }
+
+    @keyframes zoomFade {
+      0% {
+        transform: scale(0.9);
+      }
+      100% {
+        transform: scale(1.1);
+      }
+    }
+
+    /* Responsive configuration */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      nav {
+        display: none; /* simple hidden layout for minimalism on small screens */
+      }
+      .mobile-controls {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation / Header -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="#" class="logo" aria-label="Space Dash Home">
+        SPACE DASH <span class="logo-dot"></span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-to-play">How To Play</a></li>
+          <li><a href="#stats">Stats</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <button class="btn btn-primary" onclick="scrollToGame()" aria-label="Play Space Dash Now">Play Now</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero & Game Center -->
+    <section class="hero" id="game-hero">
+      <div class="hero-bg-glow"></div>
+      <div class="container">
+        <h1>Dodge the Void in <span class="gradient-text">Space Dash</span></h1>
+        <p>Unleash your interstellar reflexes. Steer through hyper-dense asteroid fields, grab energy cores, and establish your legacy in the leaderboards.</p>
+        
+        <!-- Game viewport frame -->
+        <div class="game-container glass" id="interactive-screen">
+          
+          <!-- HUD Panel (Overlaid on canvas) -->
+          <div class="hud-layer">
+            <div class="hud-item">
+              <span class="hud-label">Score</span>
+              <span id="hudScore">00000</span>
+            </div>
+            <div class="hud-item">
+              <span class="hud-label">Multiplier</span>
+              <span id="hudCombo">1.0x</span>
+            </div>
+            <div class="hud-item">
+              <span class="hud-label">Shield</span>
+              <span id="hudShield" style="color: var(--accent);">OFF</span>
+            </div>
+            <div class="hud-item">
+              <div class="hud-lives" id="hudLives" aria-label="Player Lives">
+                <svg class="heart-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <svg class="heart-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <svg class="heart-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Combo Badge Popout -->
+          <div class="combo-badge" id="comboBadge">10 COMBO!</div>
+
+          <!-- Pause Trigger Button -->
+          <button class="pause-btn" id="pauseBtn" onclick="togglePause()" aria-label="Pause Game" style="display: none;">
+            <svg class="pause-icon" id="pauseBtnIcon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+
+          <!-- Main Canvas -->
+          <canvas id="gameCanvas"></canvas>
+
+          <!-- Onscreen Controls for Touch Screens -->
+          <div class="mobile-controls" id="mobileControls">
+            <button class="control-btn" id="leftControl" aria-label="Steer Left">
+              <svg class="control-arrow" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </button>
+            <button class="control-btn" id="rightControl" aria-label="Steer Right">
+              <svg class="control-arrow" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+            </button>
+          </div>
+
+          <!-- Screen 1: Start Screen Overlay -->
+          <div class="game-overlay" id="startScreen">
+            <h2 class="overlay-title">Space Dash</h2>
+            <p class="overlay-subtitle">Steer your starship through intense fields of space debris. Grab upgrades to maximize survival.</p>
+            <button class="btn btn-primary" onclick="initAndStartGame()" aria-label="Start Spaceship Flight Game">Launch Mission</button>
+          </div>
+
+          <!-- Screen 2: Countdown Screen Overlay -->
+          <div class="game-overlay hidden" id="countdownScreen">
+            <div class="countdown-display" id="countdownNumber">3</div>
+          </div>
+
+          <!-- Screen 3: Game Over Screen Overlay -->
+          <div class="game-overlay hidden" id="gameOverScreen">
+            <h2 class="overlay-title">Ship Destroyed</h2>
+            <p class="overlay-subtitle" id="gameOverStats">Score: 0 | Time: 0s</p>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+              <button class="btn btn-primary" onclick="initAndStartGame()" aria-label="Restart Spaceship Flight Game">Fly Again</button>
+              <button class="btn btn-secondary" onclick="resetHighscore()" aria-label="Reset Best High Score">Reset High</button>
+            </div>
+          </div>
+
+          <!-- Screen 4: Pause Screen Overlay -->
+          <div class="game-overlay hidden" id="pauseScreen">
+            <h2 class="overlay-title">Flight Paused</h2>
+            <p class="overlay-subtitle">Your mission progress is temporarily frozen.</p>
+            <button class="btn btn-primary" onclick="togglePause()" aria-label="Resume Flight Game">Resume Flight</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Game Features Section -->
+    <section id="features" class="container">
+      <h2 class="section-title">Superior Interstellar Gameplay</h2>
+      <p class="section-subtitle">A state-of-the-art flight engine optimized for maximum browser performance and premium responsiveness.</p>
+      
+      <div class="features-grid">
+        <div class="feature-card glass">
+          <div class="feature-icon-wrapper">
+            <svg class="feature-icon" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3>Procedural Audio</h3>
+          <p>Real-time synthesizer sounds constructed using the browser's Web Audio API context for retro-modern mechanical output.</p>
+        </div>
+
+        <div class="feature-card glass">
+          <div class="feature-icon-wrapper">
+            <svg class="feature-icon" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h3>Tactical Powerups</h3>
+          <p>Deploy kinetic shields, invoke local slow-motion fields, or trigger double-density coordinate scoring multipliers.</p>
+        </div>
+
+        <div class="feature-card glass">
+          <div class="feature-icon-wrapper">
+            <svg class="feature-icon" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3>Dodge Combo System</h3>
+          <p>Multiply points recursively by navigating dangerously close to asteroid hazard trajectories in real-time.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stepper: How to Play -->
+    <section id="how-to-play">
+      <div class="container">
+        <h2 class="section-title">How To Survive The Asteroid Belt</h2>
+        <p class="section-subtitle">Take control of your spacecraft and dodge hazards by mastering key flight maneuvers.</p>
+        
+        <div class="features-grid" style="margin-top: 2rem;">
+          <div class="feature-card glass">
+            <div class="feature-icon-wrapper"><span style="font-family: var(--font-display); font-weight: 700; color: var(--primary);">01</span></div>
+            <h3>Steer Ship Left/Right</h3>
+            <p>Use the Left/Right arrow keys or A/D. On mobile, touch and drag or tap control buttons.</p>
+          </div>
+          <div class="feature-card glass">
+            <div class="feature-icon-wrapper"><span style="font-family: var(--font-display); font-weight: 700; color: var(--primary);">02</span></div>
+            <h3>Dodge Asteroids</h3>
+            <p>Debris flows from the top. Every near miss increases combo multipliers, but contact costs a life core.</p>
+          </div>
+          <div class="feature-card glass">
+            <div class="feature-icon-wrapper"><span style="font-family: var(--font-display); font-weight: 700; color: var(--primary);">03</span></div>
+            <h3>Synthesize Powerups</h3>
+            <p>Acquire glowing color-coded cores. Cyan grants a temporary shield, blue initiates slow motion, and pink doubles points.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats & Achievements Dashboard -->
+    <section id="stats" class="container">
+      <h2 class="section-title">Galactic Flight Statistics</h2>
+      <p class="section-subtitle">Real-time stats from the universal dashboard of active flights.</p>
+      
+      <div class="stats-row">
+        <div class="stat-card glass">
+          <div class="stat-number" id="statsHighscore">0</div>
+          <div class="stat-label">Best Personal Score</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-number" id="statsBestTime">0s</div>
+          <div class="stat-label">Longest Flight Duration</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-number">60+</div>
+          <div class="stat-label">Engine FPS Target</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section id="faq">
+      <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Find answers to queries regarding technical compatibility, high scores, and monetization.</p>
+        
+        <div class="faq-container">
+          <div class="faq-item">
+            <button class="faq-trigger" onclick="toggleFaq(this)" aria-expanded="false">
+              <span>Is Space Dash optimized for low-end mobile devices?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-content">
+              <p>Yes. The entire graphics layer is rendered using lightweight 2D context canvases, minimizing garbage collection and DOM reflow. The game is optimized for highly consistent 60 FPS performance on both low-end and premium phones.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" onclick="toggleFaq(this)" aria-expanded="false">
+              <span>Does my flight history persist between browser sessions?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-content">
+              <p>Indeed. Your highest scores and best survivability times are saved locally in the browser's standard LocalStorage storage bank, allowing offline progression and persistence.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" onclick="toggleFaq(this)" aria-expanded="false">
+              <span>Is there a global multiplayer leaderboard?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-content">
+              <p>Space Dash is currently structured as an offline-first single-player experience designed to work without network dependency. Global multiplayer integrations are scheduled for a future framework release.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookie-banner glass" id="cookieBanner">
+    <div>
+      <p style="font-weight: 600; margin-bottom: 0.25rem;">Cookie Policy & Performance Optimization</p>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">We process local storage indicators to secure offline statistics and high score tables. By clicking accept, you authorize usage profiling features.</p>
+    </div>
+    <div class="cookie-buttons">
+      <button class="btn btn-primary" onclick="acceptCookies()" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Accept</button>
+      <button class="btn btn-secondary" onclick="rejectCookies()" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Reject</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-layout">
+      <div>
+        <p style="font-weight: 700; color: #fff; margin-bottom: 0.5rem;">SPACE DASH</p>
+        <p>&copy; 2026 Space Dash Arcade Inc. All flights preserved.</p>
+      </div>
+      <div class="footer-links">
+        <a onclick="openModal('privacyModal')">Privacy Policy</a>
+        <a onclick="openModal('termsModal')">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal: Privacy Policy -->
+  <div class="modal" id="privacyModal" aria-modal="true" role="dialog">
+    <div class="modal-dialog glass">
+      <div class="modal-header">
+        <h3>Privacy Policy</h3>
+        <button class="modal-close" onclick="closeModal('privacyModal')" aria-label="Close Privacy Modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Your privacy is important to us. Space Dash operates as an offline-first browser game application.</p>
+        <h4>Data Collection</h4>
+        <p>No user account registrations are required. Flight performance data and best score logs are recorded entirely inside your local device's client-side LocalStorage cache database.</p>
+        <h4>Analytics & Advertising</h4>
+        <p>Third-party marketing integration templates (such as Google AdSense, Analytics) have clearly configured script placeholders which remain non-invasive unless activated by site configurations.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Terms of Service -->
+  <div class="modal" id="termsModal" aria-modal="true" role="dialog">
+    <div class="modal-dialog glass">
+      <div class="modal-header">
+        <h3>Terms of Service</h3>
+        <button class="modal-close" onclick="closeModal('termsModal')" aria-label="Close Terms Modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>By engaging with the Space Dash application interface, you agree to these fundamental rules.</p>
+        <h4>General License</h4>
+        <p>We grant users a personal, non-transferable browser-only runtime interaction license for gaming entertainment purposes.</p>
+        <h4>Limitation of Liability</h4>
+        <p>The space flight simulator is provided "AS IS". We are not responsible for local data storage clearing, browser memory consumption, or screen flickering effects during fast gameplay intervals.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game JavaScript Engine -->
+  <script>
+    // --- AUDIO SYSTEM (Procedural Synth via Web Audio API) ---
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) {
+            this.ctx = new AudioContextClass();
+          }
+        }
+      }
+
+      playExplosion() {
+        if (!this.ctx) return;
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+
+        const bufferSize = this.ctx.sampleRate * 0.4;
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+
+        const noise = this.ctx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(400, this.ctx.currentTime);
+        filter.frequency.exponentialRampToValueAtTime(10, this.ctx.currentTime + 0.35);
+
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.5, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.38);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+        noise.start();
+      }
+
+      playPowerUp() {
+        if (!this.ctx) return;
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(200, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.3);
+
+        gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.3);
+      }
+
+      playHit() {
+        if (!this.ctx) return;
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(180, this.ctx.currentTime);
+        osc.frequency.linearRampToValueAtTime(60, this.ctx.currentTime + 0.2);
+
+        gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.2);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.2);
+      }
+    }
+
+    const sound = new SoundEngine();
+
+    // --- GAME ENGINE VARIABLES & CONSTANTS ---
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // UI overlays
+    const startScreen = document.getElementById('startScreen');
+    const countdownScreen = document.getElementById('countdownScreen');
+    const gameOverScreen = document.getElementById('gameOverScreen');
+    const pauseScreen = document.getElementById('pauseScreen');
+    const countdownNumber = document.getElementById('countdownNumber');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const pauseBtnIcon = document.getElementById('pauseBtnIcon');
+
+    // State Constants
+    const STATE_START = 'START';
+    const STATE_COUNTDOWN = 'COUNTDOWN';
+    const STATE_PLAYING = 'PLAYING';
+    const STATE_PAUSED = 'PAUSED';
+    const STATE_GAMEOVER = 'GAMEOVER';
+
+    let gameState = STATE_START;
+    let score = 0;
+    let combo = 0;
+    let maxCombo = 0;
+    let lives = 3;
+    let startTime = 0;
+    let gameTime = 0;
+    let baseTimeCount = 0; // tracking time duration
+    let highscore = parseInt(localStorage.getItem('spacedash_highscore')) || 0;
+    let bestTime = parseInt(localStorage.getItem('spacedash_besttime')) || 0;
+
+    // Keys state tracking
+    const keys = { Left: false, Right: false };
+    
+    // Joystick touch controls tracking
+    let touchState = { active: false, x: 0 };
+
+    // Graphics properties
+    let width = 0;
+    let height = 0;
+    let screenShake = 0;
+
+    // Game Entities
+    let player = {
+      x: 0,
+      y: 0,
+      width: 40,
+      height: 40,
+      speed: 8,
+      shieldActive: false,
+      shieldDuration: 0,
+      slowMoActive: false,
+      slowMoDuration: 0,
+      doubleScoreActive: false,
+      doubleScoreDuration: 0
+    };
+
+    let asteroids = [];
+    let powerups = [];
+    let particles = [];
+    let backgroundStars = [];
+
+    // Spawning parameters
+    let asteroidSpawnTimer = 0;
+    let powerupSpawnTimer = 0;
+    let difficultyMultiplier = 1;
+
+    // Resize Canvas to device ratio
+    function resizeCanvas() {
+      const parent = canvas.parentElement;
+      const rect = parent.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+
+      // Adjust high DPI canvas scaling
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.scale(dpr, dpr);
+
+      // Re-center player horizontally
+      if (gameState === STATE_START) {
+        player.x = width / 2;
+        player.y = height - 60;
+      }
+    }
+
+    // Set initial canvas starfield
+    function createStarfield() {
+      backgroundStars = [];
+      const numStars = 60;
+      for (let i = 0; i < numStars; i++) {
+        backgroundStars.push({
+          x: Math.random() * 800,
+          y: Math.random() * 450,
+          size: Math.random() * 1.5 + 0.5,
+          speed: Math.random() * 0.8 + 0.2
+        });
+      }
+    }
+
+    // Input listeners
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.Left = true;
+      if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.Right = true;
+      if (e.key === 'p' || e.key === 'P') {
+        if (gameState === STATE_PLAYING || gameState === STATE_PAUSED) {
+          togglePause();
+        }
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.Left = false;
+      if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.Right = false;
+    });
+
+    // Touch events for mobile control buttons
+    const leftCtrl = document.getElementById('leftControl');
+    const rightCtrl = document.getElementById('rightControl');
+
+    leftCtrl.addEventListener('touchstart', (e) => { e.preventDefault(); keys.Left = true; }, { passive: false });
+    leftCtrl.addEventListener('touchend', (e) => { e.preventDefault(); keys.Left = false; }, { passive: false });
+    rightCtrl.addEventListener('touchstart', (e) => { e.preventDefault(); keys.Right = true; }, { passive: false });
+    rightCtrl.addEventListener('touchend', (e) => { e.preventDefault(); keys.Right = false; }, { passive: false });
+
+    // Touch directly on canvas dragging
+    canvas.addEventListener('touchstart', (e) => {
+      if (gameState !== STATE_PLAYING) return;
+      const t = e.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      touchState.active = true;
+      touchState.x = t.clientX - rect.left;
+    }, { passive: true });
+
+    canvas.addEventListener('touchmove', (e) => {
+      if (gameState !== STATE_PLAYING || !touchState.active) return;
+      const t = e.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      const currentX = t.clientX - rect.left;
+      // Convert browser coordinate scale back to logical units
+      const targetLogicalX = (currentX / rect.width) * width;
+      player.x = Math.max(player.width, Math.min(width - player.width, targetLogicalX));
+    }, { passive: true });
+
+    canvas.addEventListener('touchend', () => {
+      touchState.active = false;
+    });
+
+    // Initialize/Start Game Trigger
+    function initAndStartGame() {
+      // Setup Web Audio
+      sound.init();
+
+      // Reset statistics
+      score = 0;
+      combo = 0;
+      lives = 3;
+      baseTimeCount = 0;
+      difficultyMultiplier = 1;
+      asteroids = [];
+      powerups = [];
+      particles = [];
+      
+      // Update DOM Indicators
+      updateHUD();
+      updateDashboard();
+
+      // Prepare player state
+      player.x = width / 2;
+      player.y = height - 60;
+      player.shieldActive = false;
+      player.slowMoActive = false;
+      player.doubleScoreActive = false;
+
+      // Reset panels
+      startScreen.classList.add('hidden');
+      gameOverScreen.classList.add('hidden');
+      pauseScreen.classList.add('hidden');
+      
+      // Begin countdown phase
+      gameState = STATE_COUNTDOWN;
+      countdownScreen.classList.remove('hidden');
+      pauseBtn.style.display = 'none';
+
+      let count = 3;
+      countdownNumber.textContent = count;
+      
+      const interval = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdownNumber.textContent = count;
+        } else {
+          clearInterval(interval);
+          countdownScreen.classList.add('hidden');
+          gameState = STATE_PLAYING;
+          startTime = Date.now();
+          pauseBtn.style.display = 'flex';
+        }
+      }, 800);
+    }
+
+    // Toggle Pause State
+    function togglePause() {
+      if (gameState === STATE_PLAYING) {
+        gameState = STATE_PAUSED;
+        pauseScreen.classList.remove('hidden');
+        pauseBtnIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`; // Play icon
+      } else if (gameState === STATE_PAUSED) {
+        gameState = STATE_PLAYING;
+        pauseScreen.classList.add('hidden');
+        pauseBtnIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`; // Pause icon
+      }
+    }
+
+    // Game Over Logic
+    function handleGameOver() {
+      gameState = STATE_GAMEOVER;
+      pauseBtn.style.display = 'none';
+      
+      const totalTime = Math.floor((Date.now() - startTime) / 1000) + baseTimeCount;
+      
+      if (score > highscore) {
+        highscore = score;
+        localStorage.setItem('spacedash_highscore', highscore);
+      }
+      if (totalTime > bestTime) {
+        bestTime = totalTime;
+        localStorage.setItem('spacedash_besttime', bestTime);
+      }
+
+      updateDashboard();
+      sound.playHit();
+
+      // Set text updates
+      document.getElementById('gameOverStats').textContent = `Score: ${score} | Time: ${totalTime}s | Max Combo: ${maxCombo}x`;
+      gameOverScreen.classList.remove('hidden');
+    }
+
+    // Reset High Score
+    function resetHighscore() {
+      localStorage.removeItem('spacedash_highscore');
+      localStorage.removeItem('spacedash_besttime');
+      highscore = 0;
+      bestTime = 0;
+      updateDashboard();
+    }
+
+    // UI Helper - Updates gameplay HUD values
+    function updateHUD() {
+      document.getElementById('hudScore').textContent = String(score).padStart(5, '0');
+      document.getElementById('hudCombo').textContent = `${(1 + combo * 0.1).toFixed(1)}x`;
+      document.getElementById('hudShield').textContent = player.shieldActive ? 'ON' : 'OFF';
+      document.getElementById('hudShield').style.color = player.shieldActive ? 'var(--accent)' : 'var(--text-muted)';
+      
+      // Update heart elements
+      const hearts = document.querySelectorAll('#hudLives .heart-icon');
+      hearts.forEach((heart, index) => {
+        if (index < lives) {
+          heart.classList.remove('lost');
+        } else {
+          heart.classList.add('lost');
+        }
+      });
+    }
+
+    // UI Helper - Updates global landing dashboard scores
+    function updateDashboard() {
+      document.getElementById('statsHighscore').textContent = highscore;
+      document.getElementById('statsBestTime').textContent = `${bestTime}s`;
+    }
+
+    // Particle Explosion Generator
+    function createExplosion(x, y, color, count = 12) {
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 4 + 2;
+        particles.push({
+          x: x,
+          y: y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          size: Math.random() * 3 + 2,
+          color: color,
+          alpha: 1,
+          life: 1.0,
+          decay: Math.random() * 0.03 + 0.02
+        });
+      }
+    }
+
+    // Spawn dynamic entities
+    function spawnAsteroid() {
+      const radius = Math.random() * 20 + 15;
+      asteroids.push({
+        x: Math.random() * (width - radius * 2) + radius,
+        y: -radius,
+        radius: radius,
+        speed: (Math.random() * 3 + 2.5) * difficultyMultiplier,
+        rotation: 0,
+        rotationSpeed: Math.random() * 0.04 - 0.02,
+        color: `hsl(${Math.random() * 30 + 10}, 60%, 40%)` // asteroid tint
+      });
+    }
+
+    // Spawn powerups
+    function spawnPowerUp() {
+      const types = [
+        { name: 'shield', color: '#06b6d4' }, // cyan
+        { name: 'slowmo', color: '#3b82f6' }, // blue
+        { name: 'double', color: '#ec4899' }  // pink
+      ];
+      const type = types[Math.floor(Math.random() * types.length)];
+      
+      powerups.push({
+        x: Math.random() * (width - 40) + 20,
+        y: -20,
+        size: 14,
+        type: type.name,
+        color: type.color,
+        speed: 2
+      });
+    }
+
+    // --- MAIN GAME MECHANIC UPDATES ---
+    function update(dt) {
+      if (gameState !== STATE_PLAYING) return;
+
+      // Handle screen shake decay
+      if (screenShake > 0) {
+        screenShake -= 0.1;
+      }
+
+      // Difficulty increases over time
+      difficultyMultiplier += 0.0001;
+
+      // Handle time updates
+      gameTime = Math.floor((Date.now() - startTime) / 1000) + baseTimeCount;
+
+      // Smooth inputs movement
+      if (keys.Left) {
+        player.x -= player.speed;
+      }
+      if (keys.Right) {
+        player.x += player.speed;
+      }
+
+      // Bound player inside canvas boundaries
+      player.x = Math.max(player.width / 2, Math.min(width - player.width / 2, player.x));
+
+      // Handle Powerups countdown durations
+      if (player.shieldActive) {
+        player.shieldDuration -= dt;
+        if (player.shieldDuration <= 0) player.shieldActive = false;
+      }
+      if (player.slowMoActive) {
+        player.slowMoDuration -= dt;
+        if (player.slowMoDuration <= 0) player.slowMoActive = false;
+      }
+      if (player.doubleScoreActive) {
+        player.doubleScoreDuration -= dt;
+        if (player.doubleScoreDuration <= 0) player.doubleScoreActive = false;
+      }
+
+      // Parallax star field background update
+      backgroundStars.forEach(star => {
+        // Adjust star speed if Slow Motion is active
+        const starSpeed = player.slowMoActive ? star.speed * 0.4 : star.speed;
+        star.y += starSpeed;
+        if (star.y > height) {
+          star.y = 0;
+          star.x = Math.random() * width;
+        }
+      });
+
+      // Spawning schedules
+      asteroidSpawnTimer += dt;
+      const asteroidInterval = player.slowMoActive ? 1.8 : 0.9;
+      if (asteroidSpawnTimer >= asteroidInterval) {
+        spawnAsteroid();
+        asteroidSpawnTimer = 0;
+      }
+
+      powerupSpawnTimer += dt;
+      if (powerupSpawnTimer >= 8) { // spawn powerup every 8 seconds
+        spawnPowerUp();
+        powerupSpawnTimer = 0;
+      }
+
+      // Collision checks & movement for Asteroids
+      for (let i = asteroids.length - 1; i >= 0; i--) {
+        const ast = asteroids[i];
+        
+        // slow-mo effect
+        const speed = player.slowMoActive ? ast.speed * 0.4 : ast.speed;
+        ast.y += speed;
+        ast.rotation += ast.rotationSpeed;
+
+        // check collision with ship
+        const dist = Math.hypot(ast.x - player.x, ast.y - player.y);
+        if (dist < ast.radius + player.width / 2 - 5) {
+          // Explode asteroid
+          createExplosion(ast.x, ast.y, ast.color, 15);
+          asteroids.splice(i, 1);
+
+          if (player.shieldActive) {
+            player.shieldActive = false;
+            sound.playPowerUp();
+            screenShake = 3;
+          } else {
+            lives--;
+            screenShake = 6;
+            combo = 0;
+            sound.playHit();
+            updateHUD();
+            if (lives <= 0) {
+              handleGameOver();
+            }
+          }
+          continue;
+        }
+
+        // clean out of screen asteroids
+        if (ast.y > height + ast.radius) {
+          asteroids.splice(i, 1);
+          
+          // Successful dodge awards score and increases combo
+          combo++;
+          if (combo > maxCombo) maxCombo = combo;
+          
+          let scoreGained = 10;
+          if (player.doubleScoreActive) scoreGained *= 2;
+          
+          score += scoreGained * Math.floor(1 + combo * 0.1);
+          
+          // Trigger combo badge popups at intervals
+          if (combo > 0 && combo % 10 === 0) {
+            triggerComboBadge(combo);
+          }
+          updateHUD();
+        }
+      }
+
+      // Movement & collision check for Powerups
+      for (let i = powerups.length - 1; i >= 0; i--) {
+        const p = powerups[i];
+        p.y += p.speed;
+
+        // collision check
+        const dist = Math.hypot(p.x - player.x, p.y - player.y);
+        if (dist < p.size + player.width / 2) {
+          sound.playPowerUp();
+          createExplosion(p.x, p.y, p.color, 10);
+          
+          // Activate corresponding powerup feature
+          if (p.type === 'shield') {
+            player.shieldActive = true;
+            player.shieldDuration = 6.0; // 6 seconds duration
+          } else if (p.type === 'slowmo') {
+            player.slowMoActive = true;
+            player.slowMoDuration = 6.0;
+          } else if (p.type === 'double') {
+            player.doubleScoreActive = true;
+            player.doubleScoreDuration = 6.0;
+          }
+          
+          powerups.splice(i, 1);
+          updateHUD();
+          continue;
+        }
+
+        if (p.y > height + p.size) {
+          powerups.splice(i, 1);
+        }
+      }
+
+      // Update Particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= p.decay;
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+        }
+      }
+    }
+
+    // Display highcombo banner animation
+    function triggerComboBadge(comboCount) {
+      const badge = document.getElementById('comboBadge');
+      badge.textContent = `${comboCount} COMBO!`;
+      badge.classList.add('active');
+      setTimeout(() => {
+        badge.classList.remove('active');
+      }, 1500);
+    }
+
+    // --- CANVAS RENDERING FUNCTIONS ---
+    function draw() {
+      // Clear canvas context
+      ctx.clearRect(0, 0, width, height);
+
+      // Save context for screen shake translations
+      ctx.save();
+      if (screenShake > 0) {
+        const dx = (Math.random() - 0.5) * screenShake;
+        const dy = (Math.random() - 0.5) * screenShake;
+        ctx.translate(dx, dy);
+      }
+
+      // Draw background space stars
+      ctx.fillStyle = '#ffffff';
+      backgroundStars.forEach(star => {
+        ctx.globalAlpha = star.size / 2;
+        ctx.fillRect(star.x, star.y, star.size, star.size);
+      });
+      ctx.globalAlpha = 1.0;
+
+      // Draw Powerups
+      powerups.forEach(p => {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = p.color;
+        ctx.fillStyle = p.color;
+        
+        // draw glowing diamond shape
+        ctx.beginPath();
+        ctx.moveTo(0, -p.size);
+        ctx.lineTo(p.size, 0);
+        ctx.lineTo(0, p.size);
+        ctx.lineTo(-p.size, 0);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      });
+
+      // Draw Particles
+      particles.forEach(p => {
+        ctx.save();
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+
+      // Draw Asteroids
+      asteroids.forEach(ast => {
+        ctx.save();
+        ctx.translate(ast.x, ast.y);
+        ctx.rotate(ast.rotation);
+        
+        ctx.fillStyle = ast.color;
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 1;
+        ctx.globalAlpha = 0.85;
+
+        // Draw irregular polygon to look rocky
+        ctx.beginPath();
+        const pts = 8;
+        for (let i = 0; i < pts; i++) {
+          const angle = (i / pts) * Math.PI * 2;
+          const factor = 0.8 + (i % 2 === 0 ? 0.2 : 0.0);
+          const r = ast.radius * factor;
+          const px = Math.cos(angle) * r;
+          const py = Math.sin(angle) * r;
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+      });
+
+      // Draw Player Spaceship (Futuristic neon styled polygon)
+      if (gameState === STATE_PLAYING || gameState === STATE_PAUSED || gameState === STATE_COUNTDOWN) {
+        ctx.save();
+        ctx.translate(player.x, player.y);
+
+        // draw thruster flame particle simulations
+        if (gameState === STATE_PLAYING && Math.random() > 0.4) {
+          const flameY = player.height / 2;
+          createExplosion(player.x, player.y + flameY, 'orange', 1);
+        }
+
+        // draw glowing effect if powerups active
+        if (player.shieldActive) {
+          ctx.shadowBlur = 20;
+          ctx.shadowColor = 'cyan';
+          // outer protective shield ring
+          ctx.strokeStyle = 'rgba(6, 182, 212, 0.6)';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(0, 0, player.width, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+
+        ctx.fillStyle = '#a78bfa';
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+
+        // Spaceship path layout
+        ctx.beginPath();
+        ctx.moveTo(0, -player.height / 2); // apex
+        ctx.lineTo(player.width / 2, player.height / 2); // right bottom
+        ctx.lineTo(0, player.height / 4); // indentation
+        ctx.lineTo(-player.width / 2, player.height / 2); // left bottom
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.restore();
+      }
+
+      ctx.restore(); // Restore context settings
+    }
+
+    // Game loop schedule
+    let lastTime = 0;
+    function loop(timestamp) {
+      if (!lastTime) lastTime = timestamp;
+      const dt = (timestamp - lastTime) / 1000;
+      lastTime = timestamp;
+
+      // Clamp max dt duration to avoid logic skipping during page unfocus
+      update(Math.min(dt, 0.1));
+      draw();
+
+      requestAnimationFrame(loop);
+    }
+
+    // Start loading loop
+    window.addEventListener('load', () => {
+      resizeCanvas();
+      createStarfield();
+      updateDashboard();
+      requestAnimationFrame(loop);
+      
+      // Auto-trigger cookie banner showcase
+      if (!localStorage.getItem('spacedash_cookies')) {
+        setTimeout(() => {
+          document.getElementById('cookieBanner').classList.add('show');
+        }, 1000);
+      }
+    });
+
+    window.addEventListener('resize', resizeCanvas);
+
+    // --- ACCORDION FAQ INTERACTION ---
+    function toggleFaq(button) {
+      const item = button.parentElement;
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', !expanded);
+      item.classList.toggle('open');
+    }
+
+    // --- ACCESSIBLE MODALS CONTROL ---
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      modal.classList.add('open');
+      modal.querySelector('.modal-close').focus();
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      modal.classList.remove('open');
+    }
+
+    // --- COOKIE BANNER ACTION ---
+    function acceptCookies() {
+      localStorage.setItem('spacedash_cookies', 'accepted');
+      document.getElementById('cookieBanner').classList.remove('show');
+    }
+
+    function rejectCookies() {
+      localStorage.setItem('spacedash_cookies', 'rejected');
+      document.getElementById('cookieBanner').classList.remove('show');
+    }
+
+    // --- UTILITIES ---
+    function scrollToGame() {
+      document.getElementById('game-hero').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
