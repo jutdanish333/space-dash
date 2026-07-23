@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://spacedash.example.com/sitemap.xml
+Sitemap: https://jutdanish333.github.io/space-dash/sitemap.xml
