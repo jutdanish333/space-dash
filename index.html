@@ -33,7 +33,10 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  </noscript>
 
   <!-- Structured Data JSON-LD -->
   <script type="application/ld+json">
@@ -104,7 +107,7 @@
       --border-color: rgba(255, 255, 255, 0.08);
       --border-color-glow: rgba(139, 92, 246, 0.3);
       --text: #f3f4f6;
-      --text-muted: #9ca3af;
+      --text-muted: #d1d5db;
       --primary: #8b5cf6;
       --primary-hover: #7c3aed;
       --primary-glow: rgba(139, 92, 246, 0.5);
@@ -652,7 +655,8 @@
     .faq-content {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
+      visibility: hidden;
+      transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease, visibility 0.3s ease;
       padding: 0 1.5rem;
       color: var(--text-muted);
       font-size: 0.95rem;
@@ -660,6 +664,7 @@
 
     .faq-item.open .faq-content {
       max-height: 150px;
+      visibility: visible;
       padding-bottom: 1.5rem;
     }
 
@@ -777,15 +782,25 @@
       gap: 2rem;
     }
 
-    .footer-links a {
+    .footer-links button {
+      background: none;
+      border: none;
       color: var(--text-muted);
-      text-decoration: none;
-      transition: var(--transition);
+      font-size: 0.9rem;
       cursor: pointer;
+      font-family: var(--font-sans);
+      transition: var(--transition);
+      padding: 0.5rem 1rem;
+      outline: none;
     }
 
-    .footer-links a:hover {
+    .footer-links button:hover {
       color: #fff;
+    }
+
+    .footer-links button:focus-visible {
+      outline: 2px solid var(--primary);
+      border-radius: 4px;
     }
 
     /* Animations */
@@ -817,6 +832,9 @@
       }
       .mobile-controls {
         display: flex;
+      }
+      .game-container {
+        aspect-ratio: 9 / 12; /* Taller on mobile portrait screens */
       }
     }
   </style>
@@ -868,9 +886,9 @@
             </div>
             <div class="hud-item">
               <div class="hud-lives" id="hudLives" aria-label="Player Lives">
-                <svg class="heart-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                <svg class="heart-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                <svg class="heart-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <svg class="heart-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <svg class="heart-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <svg class="heart-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
               </div>
             </div>
           </div>
@@ -880,7 +898,7 @@
 
           <!-- Pause Trigger Button -->
           <button class="pause-btn" id="pauseBtn" onclick="togglePause()" aria-label="Pause Game" style="display: none;">
-            <svg class="pause-icon" id="pauseBtnIcon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            <svg class="pause-icon" aria-hidden="true" id="pauseBtnIcon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
           </button>
 
           <!-- Main Canvas -->
@@ -889,10 +907,10 @@
           <!-- Onscreen Controls for Touch Screens -->
           <div class="mobile-controls" id="mobileControls">
             <button class="control-btn" id="leftControl" aria-label="Steer Left">
-              <svg class="control-arrow" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+              <svg class="control-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
             </button>
             <button class="control-btn" id="rightControl" aria-label="Steer Right">
-              <svg class="control-arrow" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              <svg class="control-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
             </button>
           </div>
 
@@ -1016,31 +1034,31 @@
         
         <div class="faq-container">
           <div class="faq-item">
-            <button class="faq-trigger" onclick="toggleFaq(this)" aria-expanded="false">
+            <button class="faq-trigger" id="faq-q1" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a1">
               <span>Is Space Dash optimized for low-end mobile devices?</span>
-              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="faq-icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </button>
-            <div class="faq-content">
+            <div class="faq-content" id="faq-a1" role="region" aria-labelledby="faq-q1">
               <p>Yes. The entire graphics layer is rendered using lightweight 2D context canvases, minimizing garbage collection and DOM reflow. The game is optimized for highly consistent 60 FPS performance on both low-end and premium phones.</p>
             </div>
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" onclick="toggleFaq(this)" aria-expanded="false">
+            <button class="faq-trigger" id="faq-q2" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a2">
               <span>Does my flight history persist between browser sessions?</span>
-              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="faq-icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </button>
-            <div class="faq-content">
+            <div class="faq-content" id="faq-a2" role="region" aria-labelledby="faq-q2">
               <p>Indeed. Your highest scores and best survivability times are saved locally in the browser's standard LocalStorage storage bank, allowing offline progression and persistence.</p>
             </div>
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" onclick="toggleFaq(this)" aria-expanded="false">
+            <button class="faq-trigger" id="faq-q3" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a3">
               <span>Is there a global multiplayer leaderboard?</span>
-              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="faq-icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </button>
-            <div class="faq-content">
+            <div class="faq-content" id="faq-a3" role="region" aria-labelledby="faq-q3">
               <p>Space Dash is currently structured as an offline-first single-player experience designed to work without network dependency. Global multiplayer integrations are scheduled for a future framework release.</p>
             </div>
           </div>
@@ -1069,8 +1087,8 @@
         <p>&copy; 2026 Space Dash Arcade Inc. All flights preserved.</p>
       </div>
       <div class="footer-links">
-        <a onclick="openModal('privacyModal')">Privacy Policy</a>
-        <a onclick="openModal('termsModal')">Terms of Service</a>
+        <button onclick="openModal('privacyModal')" aria-haspopup="dialog" aria-controls="privacyModal">Privacy Policy</button>
+        <button onclick="openModal('termsModal')" aria-haspopup="dialog" aria-controls="termsModal">Terms of Service</button>
       </div>
     </div>
   </footer>
@@ -1080,7 +1098,7 @@
     <div class="modal-dialog glass">
       <div class="modal-header">
         <h3>Privacy Policy</h3>
-        <button class="modal-close" onclick="closeModal('privacyModal')" aria-label="Close Privacy Modal">&times;</button>
+        <button class="modal-close" onclick="closeModal('privacyModal')" aria-label="Close Privacy Modal"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
         <p>Your privacy is important to us. Space Dash operates as an offline-first browser game application.</p>
@@ -1097,7 +1115,7 @@
     <div class="modal-dialog glass">
       <div class="modal-header">
         <h3>Terms of Service</h3>
-        <button class="modal-close" onclick="closeModal('termsModal')" aria-label="Close Terms Modal">&times;</button>
+        <button class="modal-close" onclick="closeModal('termsModal')" aria-label="Close Terms Modal"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
         <p>By engaging with the Space Dash application interface, you agree to these fundamental rules.</p>
@@ -1282,17 +1300,26 @@
       if (gameState === STATE_START) {
         player.x = width / 2;
         player.y = height - 60;
+      } else {
+        // Keep player in bounds during gameplay resizing
+        player.x = Math.max(player.width / 2, Math.min(width - player.width / 2, player.x));
+        player.y = height - 60;
       }
+
+      // Recreate starfield to match new screen dimensions
+      createStarfield();
     }
 
     // Set initial canvas starfield
     function createStarfield() {
       backgroundStars = [];
       const numStars = 60;
+      const w = width || 800;
+      const h = height || 450;
       for (let i = 0; i < numStars; i++) {
         backgroundStars.push({
-          x: Math.random() * 800,
-          y: Math.random() * 450,
+          x: Math.random() * w,
+          y: Math.random() * h,
           size: Math.random() * 1.5 + 0.5,
           speed: Math.random() * 0.8 + 0.2
         });
